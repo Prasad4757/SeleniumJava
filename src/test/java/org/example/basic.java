@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -13,37 +14,21 @@ import java.time.Duration;
 public class basic {
     public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "C://Users//SM265DG//OneDrive - EY//Documents//GitHub//chromedriver-win64//chromedriver-win64//chromedriver.exe");
-        WebDriver driver=new ChromeDriver();
+        WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.get("https://rahulshettyacademy.com/locatorspractice/");
-        driver.findElement(By.xpath("//input[@id=\"inputUsername\"]")).sendKeys("magix");
-        driver.findElement(By.xpath("//input[@name=\"inputPassword\"]")).sendKeys("magix@123");
-        driver.findElement(By.xpath("//input[@id=\"chkboxOne\"]")).click();
-        driver.findElement(By.xpath("//input[@id=\"chkboxTwo\"]")).click();
-        driver.findElement(By.xpath("//button[@class=\"submit signInBtn\"]")).click();
-        String errormsg=driver.findElement(By.xpath("//p[@class=\"error\"]")).getText();
-        try {
-            Assert.assertEquals(errormsg, "* Incorrect username or password");
-            System.out.println("Successfully steps "+errormsg);
-        }
-        catch(Exception e){
-            System.out.println("mismatched got error ");
+        driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+        WebElement drpdown= driver.findElement(By.xpath("//select[@id=\"dropdown-class-example\"]"));
+        Select s=new Select(drpdown);
+        s.selectByValue("option2");
+        WebElement selectedoption=s.getFirstSelectedOption();
+        System.out.println(selectedoption.getText());
 
-            System.out.println(e.getMessage());
+        driver.navigate().to("https://www.spicejet.com/");
+        driver.findElement(By.xpath("//div[@class=\"r-1862ga2 r-1loqt21 r-1enofrn r-tceitz r-u8s1d css-76zvg2\" and contains(text(),'From')]")).click();
+        driver.findElement(By.xpath("//div[contains(text(),'Ahmedabad')]")).click();
 
-        }
 
-        driver.findElement(By.xpath("//div[@class=\"forgot-pwd-container\"]/a[text()=\"Forgot your password?\"]")).click();
-        WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(5));
-        WebElement forgotpass=driver.findElement(By.xpath("(//h2[text()=\"Forgot password\"]//parent::form[@action=\"#\"])"));
-        wait.until(ExpectedConditions.visibilityOf(forgotpass));
 
-        boolean b=forgotpass.isDisplayed();
-
-        driver.findElement(By.xpath("//input[@placeholder=\"Name\"]")).sendKeys("magix");
-        driver.findElement(By.xpath("//input[@placeholder=\"Email\"]")).sendKeys("magix@123");
-        driver.findElement(By.xpath("//input[@placeholder=\"Phone Number\"]")).sendKeys("42424324422");
-        driver.findElement(By.xpath("//button[@class=\"go-to-login-btn\"]")).click();
-}
+    }
 }
