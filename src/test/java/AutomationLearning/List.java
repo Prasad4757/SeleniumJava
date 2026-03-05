@@ -1,9 +1,8 @@
 package AutomationLearning;
 
 import java.util.ArrayList;
-import java.util.*;
 
-public class List {
+public class List<W> {
     public static void main(String []args){
         ArrayList<Integer> ls=new ArrayList<Integer>();
         ls.add(10);
