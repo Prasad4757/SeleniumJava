@@ -34,12 +34,49 @@ public class alerts {
 
            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
            wait.until(ExpectedConditions.visibilityOf(text1));
-           System.out.println("clicked alert sucessfully");
+           System.out.println("clicked alert sucessfully  "+text1.getText());
 
 
        } catch (AssertionError e) {
            System.out.println("not clicked or handled alert "+e.getMessage());
        }
+
+        driver.findElement(By.xpath("//button[contains(text(),'Click for JS Confirm')]")).click();
+        Alert b = driver.switchTo().alert();
+        System.out.println(b.getText());
+        b.accept();
+
+        try {
+            WebElement text2 = driver.findElement(By.xpath("//p[contains(text(),'You clicked:')]"));
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            wait.until(ExpectedConditions.visibilityOf(text2));
+            System.out.println("clicked ok alert sucessfully   "+ text2.getText());
+
+
+        } catch (AssertionError e) {
+            System.out.println("not clicked or handled alert "+e.getMessage());
+        }
+
+        driver.findElement(By.xpath("//button[contains(text(),'Click for JS Prompt')]")).click();
+        Alert c = driver.switchTo().alert();
+        System.out.println(c.getText());
+        c.sendKeys("Welocme to space");
+        c.accept();
+
+
+        try {
+            WebElement text3 = driver.findElement(By.xpath("//p[contains(text(),'You entered:')]"));
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            wait.until(ExpectedConditions.visibilityOf(text3));
+            System.out.println("entered details in alert sucessfully   "+ text3.getText());
+        }
+
+        catch (AssertionError e){
+            System.out.println("not clicked or handled alert "+e.getMessage());
+        }
+
 
 
 //        driver.findElement(By.xpath("//button[contains(text(),'Click for JS Confirm')]")).click();
